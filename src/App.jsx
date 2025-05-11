@@ -28,11 +28,11 @@ const routesNoAuth = [
 
 function App() {
   return (
-    <MainLayout>
-      <BrowserRouter>
+    <BrowserRouter>
+      <MainLayout>
         <Routes>{routesNoAuth.map((route) => RoutesNoAuth(route))}</Routes>
-      </BrowserRouter>
-    </MainLayout>
+      </MainLayout>
+    </BrowserRouter>
   );
 }
 

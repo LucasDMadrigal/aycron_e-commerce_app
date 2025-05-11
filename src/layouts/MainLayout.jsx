@@ -1,23 +1,20 @@
 import React, { Children } from "react";
 import "./styles/MainLayout.css";
+import { Link } from "react-router";
 const MainLayout = ({ children }) => {
   return (
     <>
       <nav>
         <ul>
           <li>
-            <a href="">Home</a>
+            <Link to="/login">Login</Link>
           </li>
           <li>
-            <a href="">About</a>
-          </li>
-          <li>
-            <a href="">Contact</a>
+            <Link to="/register">Register</Link>
           </li>
         </ul>
       </nav>
       <main>
-        <h1>Content</h1>
         {children}
       </main>
     </>

@@ -1,0 +1,32 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80vh;
+    padding: 1rem;
+}
+
+input{
+    margin: 1rem;
+    border: none;
+    padding: 1rem;
+    width: 80%;
+}
+
+input:focus{
+    outline: none;
+    border-bottom: 1px solid #2eaef0;
+}
+
+button{
+    style: none;
+    border: none;
+}
+
+.btn{
+    margin:  1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #2eaef0;
+}
