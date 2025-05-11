@@ -22,8 +22,8 @@ const RegisterForm = () => {
         <input value={user.name} onChange={handleChange} type="text" placeholder="name" />
         <input value={user.lastName} onChange={handleChange} type="text" placeholder="last name" />
         <input value={user.email} onChange={handleChange} type="text" placeholder="email" />
-        <input value={user.password} onChange={handleChange} type="text" placeholder="password" />
-        <button onClick={handleSubmit} className="btn btn-primary" type="button">LOGIN</button>
+        <input value={user.password} onChange={handleChange} type="password" placeholder="password" />
+        <button onClick={handleSubmit} className="btn btn-primary" type="button">REGISTER</button>
       </form>
     </>
   );
