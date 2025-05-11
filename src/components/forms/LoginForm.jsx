@@ -20,7 +20,7 @@ const LoginForm = () => {
       <h2>LOGIN</h2>
       <form className="form login-form" action="">
         <input value={user.email} onChange={handleChange} type="text" placeholder="email" />
-        <input value={user.password} onChange={handleChange} type="text" placeholder="password" />
+        <input value={user.password} onChange={handleChange} type="password" placeholder="password" />
         <button onClick={handleSubmit} className="btn btn-primary" type="button">LOGIN</button>
       </form>
     </>
