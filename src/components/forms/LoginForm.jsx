@@ -1,8 +1,11 @@
 import React from "react";
 import "../styles/Forms.css";
-
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/actions/authActions";
 const LoginForm = () => {
   const [user, setUser] = React.useState({});
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setUser({
@@ -10,9 +13,12 @@ const LoginForm = () => {
       [e.target.name]: e.target.value,
     });
   }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(user);
+
+    dispatch(login(user));
   };
 
   return (
