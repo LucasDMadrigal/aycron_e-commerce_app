@@ -1,0 +1,23 @@
+nav{
+    background-color: #242424;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100vh;
+}
+nav ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+nav ul li{
+    display: inline-block;
+    margin-right: 1rem;
+}
+nav ul li a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+}
