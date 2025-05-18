@@ -13,3 +13,5 @@ export const login = createAction("LOGIN", (user) => {
 
   return { payload: clearUser };
 });
+
+export const logout = createAction('LOGOUT') 

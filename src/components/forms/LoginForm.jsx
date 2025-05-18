@@ -10,14 +10,27 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 const LoginForm = () => {
   const [user, setUser] = React.useState({});
-
-  console.log("🚀 ~ apiUrl:", apiUrl);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+
+    console.log("Holis");
+    
+    // Si hay datos en localStorage, despachar la acción para iniciar sesión automáticamente
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    console.log("🚀 ~ useEffect ~ storedUser:", storedUser)
+    if (storedUser && storedUser.loggedIn) {
+      dispatch(login(storedUser));
+      navigate(storedUser.isAdmin ? "/auth/admin" : "/auth/account");
+    }
+  }, []);
+
+
   // useEffect(() => {
   //   // Si hay datos en localStorage, despachar la acción para iniciar sesión automáticamente
-  //   const storedUser = JSON.parse(localStorage.getItem("auth"));
+  //   const storedUser = JSON.parse(localStorage.getItem("user"));
   //   if (storedUser && storedUser.token) {
   //     dispatch(login(storedUser));
   //     navigate(storedUser.isAdmin ? "/auth/admin" : "/auth/account");
@@ -39,12 +52,10 @@ const LoginForm = () => {
       axios.post(`${apiUrl}user/login`, user)
       .then((response) => {
         const token = response.data;
-        console.log("🚀 ~ handleLogin ~ token:", token)
         const loggedUser = parseJwt(token);
         loggedUser.token = token;
-        console.log("🚀 ~ .then ~ loggedUser:", loggedUser)
         dispatch(login(loggedUser));
-        // navigate(loggedUser.isAdmin ? "/auth/admin" : "/auth/account");
+        navigate(loggedUser.isAdmin ? "/auth/admin" : "/auth/account");
       })
     } catch (error) {
       console.log(error);

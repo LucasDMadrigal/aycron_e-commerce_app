@@ -1,7 +1,10 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { login } from "../actions/authActions";
+import { login, logout } from "../actions/authActions";
 
-const initialState = {
+const storedUser = JSON.parse(localStorage.getItem("user")) || null;
+
+
+const initialState = storedUser || {
   user: {
     first_name: "",
     last_name: "",
@@ -37,7 +40,7 @@ const authReducer = createReducer(initialState, (builder) => {
       localStorage.setItem("user", JSON.stringify(newState));
       return newState;
     })
-    .addCase("LOGOUT", () => {
+    .addCase(logout, () => {
       localStorage.removeItem("user");
       return initialState;
     });
