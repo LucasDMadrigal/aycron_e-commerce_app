@@ -28,15 +28,6 @@ const LoginForm = () => {
   }, []);
 
 
-  // useEffect(() => {
-  //   // Si hay datos en localStorage, despachar la acción para iniciar sesión automáticamente
-  //   const storedUser = JSON.parse(localStorage.getItem("user"));
-  //   if (storedUser && storedUser.token) {
-  //     dispatch(login(storedUser));
-  //     navigate(storedUser.isAdmin ? "/auth/admin" : "/auth/account");
-  //   }
-  // }, [dispatch, navigate]);
-
   const handleChange = (e) => {
     setUser({
       ...user,

@@ -10,10 +10,13 @@ const MainLayout = ({ children }) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const loggedIn = useSelector((state) => state.auth.loggedIn);
-  
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(`🚀 ~ useEffect ~ (localStorage.getItem("user")):`, JSON.parse(localStorage.getItem("user")))
+    console.log(
+      `🚀 ~ useEffect ~ (localStorage.getItem("user")):`,
+      JSON.parse(localStorage.getItem("user"))
+    );
     // dispatch(login(user));
   }, []);
 
@@ -24,29 +27,31 @@ const MainLayout = ({ children }) => {
 
   return (
     <>
-      <nav>
-        <ul>
-          {loggedIn ? (
-            <>
-              <li>
-                {/* <Link to="/auth/account">Account</Link> */}
-              </li>
-              <li>
-                <Link to="/login" onClick={HandleLogout}>Logout</Link>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </nav>
+      <header>
+        <nav>
+          <ul>
+            {loggedIn ? (
+              <>
+                <li>{/* <Link to="/auth/account">Account</Link> */}</li>
+                <li>
+                  <Link to="/login" onClick={HandleLogout}>
+                    Logout
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </nav>
+      </header>
       <main>{children}</main>
     </>
   );
