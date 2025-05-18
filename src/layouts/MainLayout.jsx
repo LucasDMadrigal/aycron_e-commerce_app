@@ -1,35 +1,38 @@
 import React, { useEffect, useState } from "react";
 import "./styles/MainLayout.css";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/actions/authActions";
 const MainLayout = ({ children }) => {
   const [storedUser, setStoredUser] = useState(null);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
   
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     console.log(`🚀 ~ useEffect ~ (localStorage.getItem("user")):`, JSON.parse(localStorage.getItem("user")))
-    setStoredUser(user);
+    // dispatch(login(user));
   }, []);
 
   const HandleLogout = () => {
     dispatch(logout());
+    navigate("/login");
   };
 
   return (
     <>
       <nav>
         <ul>
-          {storedUser?.loggedIn ? (
+          {loggedIn ? (
             <>
               <li>
                 {/* <Link to="/auth/account">Account</Link> */}
               </li>
               <li>
-                <Link to="#" onClick={HandleLogout}>Logout</Link>
+                <Link to="/login" onClick={HandleLogout}>Logout</Link>
               </li>
             </>
           ) : (

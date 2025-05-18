@@ -65,7 +65,7 @@ const LoginForm = () => {
   return (
     <>
       <h2>LOGIN</h2>
-      <form className="form login-form" action="">
+      <form className="form login-form"onSubmit={handleLogin}>
         <input
           name="email"
           value={user.email}
@@ -80,7 +80,7 @@ const LoginForm = () => {
           type="password"
           placeholder="password"
         />
-        <button onClick={handleLogin} className="btn btn-primary" type="button">
+        <button  className="btn btn-primary" type='submit'>
           LOGIN
         </button>
       </form>

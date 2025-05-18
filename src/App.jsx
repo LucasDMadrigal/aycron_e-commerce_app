@@ -8,6 +8,7 @@ import Register from "./views/Register";
 import MainLayout from "./layouts/MainLayout";
 import AdminPanel from "./views/AdminPanel";
 import RoutesAdminAuth from "./HOCs/RoutesAdminAuth";
+import MainStore from "./views/MainStore";
 
 const routesNoAuth = [
   {
@@ -25,6 +26,11 @@ const routesNoAuth = [
     element: <Landing />,
     key: "home",
   },
+  {
+    path: '/auth/account',
+    element: <MainStore />,
+    key: 'adminPanel',
+  }
 ];
 
 const routesAdmin = [
@@ -37,15 +43,6 @@ const routesAdmin = [
 
 
 function App() {
-
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //       // Si hay datos en localStorage, despachar la acción para iniciar sesión automáticamente
-  //       const storedUser = JSON.parse(localStorage.getItem("user"));
-  //       if (!storedUser || !storedUser.loggedIn) {
-  //         navigate("/Login");
-  //       }
-  //     }, [navigate]);
 
   return (
     <BrowserRouter>
