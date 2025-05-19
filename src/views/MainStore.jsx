@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import "./styles/MainStore.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import ProductCard from "../components/cards/ProductCard";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -28,6 +29,15 @@ const MainStore = () => {
     <>
       <section className="mainStore--container">
         <h1>MainStore</h1>
+        <div className="mainStore--products">
+          {products.map((product) => (
+            // <div className="mainStore--product">
+            //   <h2>{product.name}</h2>
+            //   <p>{product.price}</p>
+            // </div>
+            <ProductCard product={product} key={product._id} />
+          ))}
+        </div>
       </section>
     </>
   );

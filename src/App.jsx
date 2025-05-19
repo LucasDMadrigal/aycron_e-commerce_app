@@ -9,6 +9,7 @@ import MainLayout from "./layouts/MainLayout";
 import AdminPanel from "./views/AdminPanel";
 import RoutesAdminAuth from "./HOCs/RoutesAdminAuth";
 import MainStore from "./views/MainStore";
+import Icon from '@mui/material/Icon';
 
 const routesNoAuth = [
   {
