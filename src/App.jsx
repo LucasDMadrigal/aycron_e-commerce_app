@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import Login from "./views/Login";
 import "./App.css";
-import { BrowserRouter, Routes, useNavigate } from "react-router";
+import { BrowserRouter, Routes } from "react-router";
 import RoutesNoAuth from "./HOCs/RoutesNoAuth";
 import Landing from "./views/Landing";
 import Register from "./views/Register";
@@ -9,7 +8,6 @@ import MainLayout from "./layouts/MainLayout";
 import AdminPanel from "./views/AdminPanel";
 import RoutesAdminAuth from "./HOCs/RoutesAdminAuth";
 import MainStore from "./views/MainStore";
-import Icon from '@mui/material/Icon';
 
 const routesNoAuth = [
   {

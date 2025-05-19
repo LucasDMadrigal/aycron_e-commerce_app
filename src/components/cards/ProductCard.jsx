@@ -1,15 +1,17 @@
 import React from "react";
 import "../styles/ProductCard.css";
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
   return (
     <div className="wrapper">
       <div className="container">
-        <div className="top"></div>
+        <div className="top">
+           <img src={product.image} alt={product.name} className="product-image" />
+        </div>
         <div className="bottom">
           <div className="left">
             <div className="details">
-              <h1 className="card-title">Chair</h1>
-              <p>£250</p>
+              <h1 className="card-title">{product.name}</h1>
+              <p>${product.price}</p>
             </div>
             <div className="buy">
               <i className="material-icons">add_shopping_cart</i>
@@ -34,8 +36,8 @@ const ProductCard = () => {
           <i className="material-icons">info_outline</i>
         </div>
         <div className="contents">
-          <h1 className="card-title">Chair</h1>
-          <p>£250</p>
+          <h1 className="card-title--description">{product.name}</h1>
+          <p>{product.description}</p>
         </div>
       </div>
     </div>

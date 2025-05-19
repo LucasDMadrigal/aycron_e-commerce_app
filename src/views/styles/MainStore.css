@@ -3,3 +3,8 @@
   width: 80vw;
   text-align: center;
 }
+
+.mainStore--products {
+  display: flex;
+  flex-wrap: wrap;
+}
