@@ -25,18 +25,19 @@ const authReducer = createReducer(initialState, (builder) => {
       const newState = {
         ...state,
         user: {
-          first_name: action.payload.first_name,
-          last_name: action.payload.last_name,
-          userId: action.payload.userId,
-          isAdmin: action.payload.isAdmin,
-          iat: action.payload.iat,
-          exp: action.payload.exp,
+          first_name: action.payload.user.first_name,
+          last_name: action.payload.user.last_name,
+          userId: action.payload.user.userId,
+          isAdmin: action.payload.user.isAdmin,
+          iat: action.payload.user.iat,
+          exp: action.payload.user.exp,
         },
         token: action.payload.token,
         expiresIn: action.payload.exp,
         loggedIn: true,
       };
 
+      console.log("🚀 ~ .addCase ~ action:", action)
       localStorage.setItem("user", JSON.stringify(newState));
       return newState;
     })

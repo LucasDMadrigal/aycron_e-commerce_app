@@ -8,7 +8,7 @@ const MainLayout = ({ children }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
+  const auth = useSelector((state) => state.auth);
   const loggedIn = useSelector((state) => state.auth.loggedIn);
 
   useEffect(() => {
@@ -34,9 +34,9 @@ const MainLayout = ({ children }) => {
               <>
                 <li>{/* <Link to="/auth/account">Account</Link> */}</li>
                 <li>
-                  <Link to="/login" onClick={HandleLogout}>
+                  <span style={{ cursor: "pointer" }} onClick={HandleLogout}>
                     Logout
-                  </Link>
+                  </span>
                 </li>
               </>
             ) : (

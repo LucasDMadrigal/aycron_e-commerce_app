@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/ProductCard.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/actions/cartActions";
 const ProductCard = ({ product }) => {
+
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const [inCart, setInCart] = React.useState(false);
+
+  useEffect(() => {
+    console.log(cart);
+    setInCart(cart.includes(product._id));
+  }, [cart]);
+
+  const handleBuyClick = () => {
+    // const newCart = [...cart, product._id];
+    dispatch(addToCart(product._id));
+  };
+
   return (
     <div className="wrapper">
       <div className="container">
@@ -13,7 +30,10 @@ const ProductCard = ({ product }) => {
               <h1 className="card-title">{product.name}</h1>
               <p>${product.price}</p>
             </div>
-            <div className="buy">
+            <div 
+            className={`buy ${inCart ? "clicked" : ""}`}
+            onClick={handleBuyClick}
+            >
               <i className="material-icons">add_shopping_cart</i>
             </div>
           </div>
