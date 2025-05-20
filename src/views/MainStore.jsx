@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import "./styles/MainStore.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/cards/ProductCard";
 import { setCartFromLocalStorage } from "../redux/actions/cartActions";
+import "./styles/MainStore.css";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const MainStore = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
   const token = useSelector((state) => state.auth.token);
+  const cart = useSelector((state) => state.cart) || [];
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCartFromLocalStorage());
@@ -25,13 +29,41 @@ const MainStore = () => {
       });
   }, []);
 
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
+
+  const HandleSearch = ({ target }) => {
+    const search = target.value;
+
+    if (search === "") {
+      setFilteredProducts(products);
+      return;
+    }
+
+    const filtered = products.filter((product) => {
+      return product.name.toLowerCase().includes(search.toLowerCase());
+    });
+    setFilteredProducts(filtered);
+  };
+
   return (
     <>
       <section className="mainStore--container">
         <h1>MainStore</h1>
+        <input
+          type="text"
+          onChange={HandleSearch}
+          placeholder="busca por nombre"
+        />
         <div className="mainStore--products">
-          {products.map((product) => (
-            <ProductCard product={product} key={product._id} />
+          {filteredProducts.map((product) => (
+            <ProductCard
+            selected={cart.includes(product._id)}
+              product={product}
+              key={product._id}
+            />
+            // <></>
           ))}
         </div>
       </section>

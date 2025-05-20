@@ -41,6 +41,7 @@ const authReducer = createReducer(initialState, (builder) => {
     })
     .addCase(logout, () => {
       localStorage.removeItem("user");
+      localStorage.removeItem("cart");
       return initialState;
     });
 });

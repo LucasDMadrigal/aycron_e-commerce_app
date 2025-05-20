@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(user);
+    // console.log(user);
 
     try {
       axios.post(`${apiUrl}user/login`, user).then((response) => {
