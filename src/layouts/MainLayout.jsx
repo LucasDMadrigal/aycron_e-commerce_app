@@ -11,15 +11,6 @@ const MainLayout = ({ children }) => {
   const auth = useSelector((state) => state.auth);
   const loggedIn = useSelector((state) => state.auth.loggedIn);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    console.log(
-      `🚀 ~ useEffect ~ (localStorage.getItem("user")):`,
-      JSON.parse(localStorage.getItem("user"))
-    );
-    // dispatch(login(user));
-  }, []);
-
   const HandleLogout = () => {
     dispatch(logout());
     navigate("/login");

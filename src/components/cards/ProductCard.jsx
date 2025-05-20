@@ -1,21 +1,24 @@
 import React, { useEffect } from "react";
 import "../styles/ProductCard.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../redux/actions/cartActions";
+import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 const ProductCard = ({ product }) => {
 
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [inCart, setInCart] = React.useState(false);
 
-  useEffect(() => {
-    // console.log(cart);
+  useEffect(() => {    
     setInCart(cart.includes(product._id));
   }, [cart]);
 
-  const handleBuyClick = () => {
-    // const newCart = [...cart, product._id];
-    dispatch(addToCart(product._id));
+  const handleToggleBuyClick = () => {
+    if (inCart) {
+      dispatch(removeFromCart(product));
+    }else{
+      
+      dispatch(addToCart(product._id));
+    }
   };
 
   return (
@@ -24,15 +27,15 @@ const ProductCard = ({ product }) => {
         <div className="top">
            <img src={product.image} alt={product.name} className="product-image" />
         </div>
-        <div className="bottom">
+        <div className={`bottom ${inCart ? "clicked" : ""}`}>
           <div className="left">
             <div className="details">
               <h1 className="card-title">{product.name}</h1>
               <p>${product.price}</p>
             </div>
             <div 
-            className={`buy ${inCart ? "clicked" : ""}`}
-            onClick={handleBuyClick}
+            className="buy"
+            onClick={handleToggleBuyClick}
             >
               <i className="material-icons">add_shopping_cart</i>
             </div>
@@ -45,7 +48,9 @@ const ProductCard = ({ product }) => {
               <h1 className="card-title">Chair</h1>
               <p>Added to your cart</p>
             </div>
-            <div className="remove">
+            <div className="remove"
+              onClick={handleToggleBuyClick}
+            >
               <i className="material-icons">clear</i>
             </div>
           </div>

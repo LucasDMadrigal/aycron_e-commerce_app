@@ -13,7 +13,7 @@ console.log("🚀 ~ addToCart ~ product:", product)
 export const removeFromCart = createAction("REMOVE_FROM_CART", (product) => {
 
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const newCart = cart.filter(item => item._id !== product._id);
+    const newCart = cart.filter(item => item !== product);
     localStorage.setItem("cart", JSON.stringify(newCart));
 
     return { payload: cart }
