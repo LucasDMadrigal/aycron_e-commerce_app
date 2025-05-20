@@ -1,6 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
 
 export const addToCart = createAction("ADD_TO_CART", (product) => {
+console.log("🚀 ~ addToCart ~ product:", product)
 
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.push(product);

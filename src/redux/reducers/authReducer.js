@@ -21,7 +21,6 @@ const initialState = storedUser || {
 const authReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(login, (state, action) => {
-      console.log("🚀 ~ builder.addCase ~ action:", action);
       const newState = {
         ...state,
         user: {
@@ -37,7 +36,6 @@ const authReducer = createReducer(initialState, (builder) => {
         loggedIn: true,
       };
 
-      console.log("🚀 ~ .addCase ~ action:", action)
       localStorage.setItem("user", JSON.stringify(newState));
       return newState;
     })

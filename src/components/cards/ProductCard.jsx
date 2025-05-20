@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
   const [inCart, setInCart] = React.useState(false);
 
   useEffect(() => {
-    console.log(cart);
+    // console.log(cart);
     setInCart(cart.includes(product._id));
   }, [cart]);
 

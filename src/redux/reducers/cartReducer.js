@@ -12,9 +12,9 @@ const initialState = [...storedCart];
 const cartReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(addToCart, (state, action) => {
-      const newState = [...state, action.payload];
-      localStorage.setItem("cart", JSON.stringify(newState));
-      return newState;
+      const newCart = [...action.payload];
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      return newCart;
     })
     .addCase(removeFromCart, (state, action) =>
       state.filter((item) => item._id !== action.payload._id)
