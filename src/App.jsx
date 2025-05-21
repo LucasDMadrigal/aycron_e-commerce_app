@@ -8,6 +8,8 @@ import MainLayout from "./layouts/MainLayout";
 import AdminPanel from "./views/AdminPanel";
 import RoutesAdminAuth from "./HOCs/RoutesAdminAuth";
 import MainStore from "./views/MainStore";
+import Cart from "./views/Cart";
+import RoutesAuth from "./HOCs/RoutesAuth";
 
 const routesNoAuth = [
   {
@@ -25,12 +27,20 @@ const routesNoAuth = [
     element: <Landing />,
     key: "home",
   },
+];
+
+const routesAuth = [
   {
     path: '/auth/account',
     element: <MainStore />,
     key: 'adminPanel',
+  },
+  {
+    path: '/auth/cart',
+    element: <Cart />,
+    key: 'cart',
   }
-];
+]
 
 const routesAdmin = [
   {
@@ -49,6 +59,7 @@ function App() {
         <Routes path='/'>
           {routesNoAuth.map((route) => RoutesNoAuth(route))}
           {routesAdmin.map((route) => RoutesAdminAuth(route))}
+          {routesAuth.map((route) => RoutesAuth(route))}
         </Routes>
       </MainLayout>
     </BrowserRouter>
