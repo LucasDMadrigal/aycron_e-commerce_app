@@ -19,7 +19,7 @@ const LoginForm = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser && storedUser.loggedIn) {
       dispatch(login(storedUser));
-      navigate(storedUser.isAdmin ? "/auth/admin" : "/auth/account");
+      navigate(storedUser.isAdmin ? "/auth/admin" : "/auth/store");
     }
   }, []);
 
@@ -51,7 +51,7 @@ const LoginForm = () => {
         expiresIn: loggedUser.exp,
         };
         dispatch(login(auth));
-        navigate(loggedUser.isAdmin ? "/auth/admin" : "/auth/account");
+        navigate(loggedUser.isAdmin ? "/auth/admin" : "/auth/store");
       });
     } catch (error) {
       console.log(error);

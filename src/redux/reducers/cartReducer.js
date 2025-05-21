@@ -5,9 +5,8 @@ import {
   setCartFromLocalStorage,
 } from "../actions/cartActions";
 
-const storedCart = localStorage.getItem("cart") || [];
-
-const initialState = [...storedCart];
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const initialState = [...cart];
 
 const cartReducer = createReducer(initialState, (builder) => {
   builder
@@ -22,13 +21,9 @@ const cartReducer = createReducer(initialState, (builder) => {
       return newCart;
     })
     .addCase(setCartFromLocalStorage, () => {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      if (cart.length > 0) {
+      
         const setedCart = [...cart];
         return setedCart;
-      } else {
-        return [];
-      }
     });
 });
 

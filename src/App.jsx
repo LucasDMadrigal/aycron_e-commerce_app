@@ -31,7 +31,7 @@ const routesNoAuth = [
 
 const routesAuth = [
   {
-    path: '/auth/account',
+    path: '/auth/store',
     element: <MainStore />,
     key: 'adminPanel',
   },

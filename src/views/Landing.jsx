@@ -15,7 +15,7 @@ const Landing = () => {
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (storedUser && storedUser.loggedIn) {
         dispatch(login(storedUser));
-        navigate(storedUser.isAdmin ? "/auth/admin" : "/auth/account");
+        navigate(storedUser.isAdmin ? "/auth/admin" : "/auth/store");
       }else{
         navigate("/Login");
       }

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 
 const ProductCard = ({ product, selected }) => {
-  console.log("🚀 ~ ProductCard ~ selected:", selected)
   const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
