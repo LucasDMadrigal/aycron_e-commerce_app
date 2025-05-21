@@ -1,7 +1,6 @@
 table {
   width: 100%;
   max-width: 1200px;
-  
 }
 th,
 td {
@@ -10,15 +9,31 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
-.button--table{
+.button--table {
   margin: 0 1rem;
 }
-.actions{
+.actions {
   display: flex;
   justify-content: space-evenly;
 }
-.delete_forever{
+.delete_forever {
   color: #566473;
   cursor: pointer;
   margin: 0 0.4rem;
+}
+
+.total--container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout--container {
+  width: 100%;
+  max-width: 1200px;
+  height: 30vh;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
 }

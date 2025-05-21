@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "./styles/Cart.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromCart,
   setCartFromLocalStorage,
   updateCart,
 } from "../redux/actions/cartActions";
-import axios from "axios";
-import { Navigate } from "react-router";
+import "./styles/Cart.css";
 const Cart = () => {
   const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
@@ -23,6 +22,11 @@ const Cart = () => {
       ...prod,
       quantity: prod.quantity ?? 1, // Si ya viene con quantity no lo pisa
     }));
+    const total = cartWithQuantity.reduce(
+      (acc, prod) => acc + prod.price * prod.quantity,
+      0
+    );
+    setTotal(total.toFixed(2));
     setProducts(cartWithQuantity);
   }, [cart]);
 
@@ -76,7 +80,7 @@ const Cart = () => {
                   <td>${product.price}</td>
                   <td className="actions">
                     <button
-                    className="button--table"
+                      className="button--table"
                       onClick={() => handleModifyQuantity(product._id, "sum")}
                       type="button"
                     >
@@ -84,14 +88,14 @@ const Cart = () => {
                     </button>
                     {product.quantity}
                     <button
-                    className="button--table"
+                      className="button--table"
                       onClick={() => handleModifyQuantity(product._id, "sub")}
                       type="button"
                     >
                       -
                     </button>
                     <button
-                    className="button--table"
+                      className="button--table"
                       onClick={() => handleRemoveProduct(product._id)}
                       type="button"
                     >
@@ -106,6 +110,17 @@ const Cart = () => {
           </tbody>
         </table>
       )}
+
+      <div className="checkout--container">
+        <div className="total--container">
+          <h2>Total: ${total}</h2>
+        </div>
+        <div className="checkout-button--container">
+          <button className="btn btn-primary" type="button">
+            Checkout
+          </button>
+        </div>
+      </div>
     </>
   );
 };
