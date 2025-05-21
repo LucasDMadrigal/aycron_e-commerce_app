@@ -47,6 +47,9 @@ const MainStore = () => {
     setFilteredProducts(filtered);
   };
 
+  const toogleSelected = (productId) => {
+    return cart.some((item) => item._id === productId);
+  };
   return (
     <>
       <section className="mainStore--container">
@@ -59,7 +62,7 @@ const MainStore = () => {
         <div className="mainStore--products">
           {filteredProducts.map((product) => (
             <ProductCard
-            selected={cart.includes(product._id)}
+              selected={toogleSelected(product._id)}
               product={product}
               key={product._id}
             />

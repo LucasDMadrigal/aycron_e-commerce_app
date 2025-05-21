@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/ProductCard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 
 const ProductCard = ({ product, selected }) => {
+  const [productToCart, setProductToCart] = useState({ ...product, quantity: 1 });
   const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
     const handleToggleBuyClick = () => {
-      if (cart.includes(product._id)) {
-        dispatch(removeFromCart(product._id));
+      if (cart.some(prod => prod._id === product._id)) {
+        dispatch(removeFromCart(product));
       } else {
-        dispatch(addToCart(product._id));
+        dispatch(addToCart(productToCart));
       }
     };
   
