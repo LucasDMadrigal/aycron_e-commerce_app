@@ -6,11 +6,14 @@ import {
   updateCart,
 } from "../redux/actions/cartActions";
 import "./styles/Cart.css";
+import axios from "axios";
 const Cart = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const userId = useSelector((state) => state.auth.user.userId);
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     dispatch(setCartFromLocalStorage());
@@ -54,6 +57,21 @@ const Cart = () => {
     setProducts(updatedProducts);
   };
 
+  const handleCheckout = () => {
+    if (window.confirm("Are you sure you want to checkout?")) {
+      axios
+        .post(`${import.meta.env.VITE_API_URL}purchase/create`, {
+          products, user_id: userId
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((response) => {
+          window.location.href = response.data.url;
+        });
+    }
+  };
   return (
     <>
       <h1>Cart</h1>
@@ -81,18 +99,18 @@ const Cart = () => {
                   <td className="actions">
                     <button
                       className="button--table"
-                      onClick={() => handleModifyQuantity(product._id, "sum")}
-                      type="button"
-                    >
-                      +
-                    </button>
-                    {product.quantity}
-                    <button
-                      className="button--table"
                       onClick={() => handleModifyQuantity(product._id, "sub")}
                       type="button"
                     >
                       -
+                    </button>
+                    {product.quantity}
+                    <button
+                      className="button--table"
+                      onClick={() => handleModifyQuantity(product._id, "sum")}
+                      type="button"
+                    >
+                      +
                     </button>
                     <button
                       className="button--table"
@@ -111,16 +129,24 @@ const Cart = () => {
         </table>
       )}
 
-      <div className="checkout--container">
-        <div className="total--container">
-          <h2>Total: ${total}</h2>
+      {products.length !== 0 ? (
+        <div className="checkout--container">
+          <div className="total--container">
+            <h2>Total: ${total}</h2>
+          </div>
+          <div className="checkout-button--container">
+            <button
+              onClick={handleCheckout}
+              className="btn btn-primary"
+              type="button"
+            >
+              Checkout
+            </button>
+          </div>
         </div>
-        <div className="checkout-button--container">
-          <button className="btn btn-primary" type="button">
-            Checkout
-          </button>
-        </div>
-      </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };
