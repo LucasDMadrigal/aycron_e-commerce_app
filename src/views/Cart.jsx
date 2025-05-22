@@ -112,7 +112,7 @@ const Cart = () => {
                     </button>
 
                   </td>
-                  <td>${product.price*product.quantity}</td>
+                  <td>${(product.price*product.quantity).toFixed(2)}</td>
                   <td className="actions">
                     <button
                       className="button--table"
