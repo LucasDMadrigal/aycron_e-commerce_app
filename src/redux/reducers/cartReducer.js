@@ -2,34 +2,28 @@ import { createReducer } from "@reduxjs/toolkit";
 import {
   addToCart,
   removeFromCart,
-  setCartFromLocalStorage,
   updateCart,
+  setCartFromLocalStorage,
 } from "../actions/cartActions";
 
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
-const initialState = [...cart];
+// Estado inicial como array de productos
+const initialState = [];
 
 const cartReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(addToCart, (state, action) => {
-      const newCart = [...action.payload];
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return newCart;
+      return [...state, action.payload];
     })
     .addCase(removeFromCart, (state, action) => {
-      const newCart = [...action.payload];
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return newCart;
+      return state.filter((item) => item._id !== action.payload._id);
     })
     .addCase(updateCart, (state, action) => {
-      const newCart = [...action.payload];
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return newCart;
+      return state.map((item) =>
+        item._id === action.payload._id ? action.payload : item
+      );
     })
-    .addCase(setCartFromLocalStorage, () => {
-      
-        const setedCart = [...cart];
-        return setedCart;
+    .addCase(setCartFromLocalStorage, (_, action) => {
+      return action.payload;
     });
 });
 

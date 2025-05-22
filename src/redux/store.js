@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducers/authReducer";
 import cartReducer from "./reducers/cartReducer";
+
+// Leer el estado persistido del localStorage
 const persistedCart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const store = configureStore({
@@ -12,6 +14,8 @@ const store = configureStore({
     cart: persistedCart,
   },
 });
+
+// Guardar en localStorage cada vez que cambia el cart
 store.subscribe(() => {
   const state = store.getState();
   localStorage.setItem("cart", JSON.stringify(state.cart));
