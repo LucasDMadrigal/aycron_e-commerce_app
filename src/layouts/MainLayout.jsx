@@ -18,12 +18,12 @@ const MainLayout = ({ children }) => {
         )
       ) {
         dispatch(logout());
-        window.location.replace("/login");
+        window.location.replace("/Login");
       }
     }
     else {
       dispatch(logout());
-      window.location.replace("/login");
+      window.location.replace("/Login");
     }
   };
 
