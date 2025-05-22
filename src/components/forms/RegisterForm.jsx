@@ -19,7 +19,7 @@ const RegisterForm = () => {
     try {
       axios.post(`${apiUrl}user/register`, newUser).then((response) => {
         alert(response.data);
-        window.location.href = "/login";      
+        window.location.href = "/Login";      
       })
     .catch((error) => {
       alert(error.response.data);

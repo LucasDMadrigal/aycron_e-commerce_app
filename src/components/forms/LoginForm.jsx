@@ -35,7 +35,7 @@ const LoginForm = () => {
     // console.log(user);
 
     try {
-      axios.post(`${apiUrl}user/login`, user).then((response) => {
+      axios.post(`${apiUrl}user/Login`, user).then((response) => {
         const token = response.data;
         const loggedUser = parseJwt(token);
         const auth = {
