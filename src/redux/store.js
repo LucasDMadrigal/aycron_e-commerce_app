@@ -3,7 +3,7 @@ import authReducer from "./reducers/authReducer";
 import cartReducer from "./reducers/cartReducer";
 const persistedCart = JSON.parse(localStorage.getItem('cart')) || [];
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     auth: authReducer,
     cart: cartReducer,
@@ -12,3 +12,9 @@ export const store = configureStore({
     cart: persistedCart
   }
 });
+store.subscribe(() => {
+  const state = store.getState();
+  localStorage.setItem('cart', JSON.stringify(state.cart.items));
+});
+
+export default store;
