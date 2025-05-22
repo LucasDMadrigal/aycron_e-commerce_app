@@ -7,6 +7,7 @@ import {
 } from "../redux/actions/cartActions";
 import "./styles/Cart.css";
 import axios from "axios";
+import { useNavigate } from "react-router";
 const Cart = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
@@ -14,6 +15,8 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const userId = useSelector((state) => state.auth.user.userId);
   const token = useSelector((state) => state.auth.token);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(setCartFromLocalStorage());
@@ -68,7 +71,8 @@ const Cart = () => {
           }
         })
         .then((response) => {
-          window.location.href = response.data.url;
+        //  navigate("/purchases");
+        navigate("/auth/store");
         });
     }
   };
