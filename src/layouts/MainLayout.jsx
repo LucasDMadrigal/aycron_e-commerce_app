@@ -35,10 +35,10 @@ const MainLayout = ({ children }) => {
             {loggedIn ? (
               <>
                 <li>
-                  <a href="/auth/store">Store</a>
+                  <Link href="/auth/store">Store</Link>
                 </li>
                 <li>
-                  <a href="/auth/cart">cart</a>
+                  <Link href="/auth/cart">cart</Link>
                   <span className="cart--quantity">{cart.length}</span>
                 </li>
                 <li>
