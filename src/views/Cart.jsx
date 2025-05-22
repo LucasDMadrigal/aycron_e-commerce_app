@@ -94,9 +94,7 @@ const Cart = () => {
                 <tr key={product._id}>
                   <td>{product.name}</td>
                   <td>${product.price}</td>
-                  <td>1</td>
-                  <td>${product.price}</td>
-                  <td className="actions">
+                  <td>
                     <button
                       className="button--table"
                       onClick={() => handleModifyQuantity(product._id, "sub")}
@@ -112,6 +110,10 @@ const Cart = () => {
                     >
                       +
                     </button>
+
+                  </td>
+                  <td>${product.price*product.quantity}</td>
+                  <td className="actions">
                     <button
                       className="button--table"
                       onClick={() => handleRemoveProduct(product._id)}
