@@ -78,7 +78,7 @@ const MainStore = () => {
   return (
     <>
       <section className="mainStore--container">
-        <h1>MainStore</h1>
+        <h1>AycronStore</h1>
         <input
           name="search"
           ref={searchInputRef}

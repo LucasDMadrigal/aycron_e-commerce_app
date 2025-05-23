@@ -4,18 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 
 const ProductCard = ({ product, selected }) => {
-  const [productToCart, setProductToCart] = useState({ ...product, quantity: 1 });
+  const [productToCart, setProductToCart] = useState({
+    ...product,
+    quantity: 1,
+  });
   const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
-    const handleToggleBuyClick = () => {
-      if (cart.some(prod => prod._id === product._id)) {
-        dispatch(removeFromCart(product));
-      } else {
-        dispatch(addToCart(productToCart));
-      }
-    };
-  
+  const handleToggleBuyClick = () => {
+    if (cart.some((prod) => prod._id === product._id)) {
+      dispatch(removeFromCart(product));
+    } else {
+      dispatch(addToCart(productToCart));
+    }
+  };
 
   return (
     <div className="wrapper">
@@ -35,7 +37,7 @@ const ProductCard = ({ product, selected }) => {
               <p>${product.price}</p>
             </div>
             <div className="buy" onClick={handleToggleBuyClick}>
-            {/* <div className="buy" > */}
+              {/* <div className="buy" > */}
               <i className="material-icons">add_shopping_cart</i>
             </div>
           </div>
@@ -44,11 +46,10 @@ const ProductCard = ({ product, selected }) => {
               <i className="material-icons">done</i>
             </div>
             <div className="details">
-              <h1 className="card-title">Chair</h1>
-              <p>Added to your cart</p>
+              <h1 className="card-title">{product.name}</h1>
             </div>
             <div className="remove" onClick={handleToggleBuyClick}>
-            {/* <div className="remove"> */}
+              {/* <div className="remove"> */}
               <i className="material-icons">clear</i>
             </div>
           </div>
