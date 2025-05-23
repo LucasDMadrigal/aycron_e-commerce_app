@@ -1,4 +1,4 @@
-  table.cart--table {
+table.cart--table {
   width: 80%;
   max-width: 1200px;
 }
@@ -30,7 +30,7 @@ td {
 .checkout--container {
   width: 100%;
   max-width: 1200px;
-  height: 30vh;
+  height: 23vh;
   margin: 1rem 0;
   display: flex;
   align-items: center;
