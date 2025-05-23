@@ -2,9 +2,44 @@
   padding: 1rem;
   width: 80vw;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .mainStore--products {
   display: flex;
   flex-wrap: wrap;
+}
+
+.filter-price--container {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: flex-end;
+  width: 80%;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #566473;
+}
+
+.filter-price-input--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-price-input--container input {
+  margin: 0.5rem;
+  max-width: 100px;
+}
+
+.filter-price--container button {
+    margin: 0.3rem 1rem;
+    line-height: inherit;
+  }
+  
+  .filter-price--container button:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }

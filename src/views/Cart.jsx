@@ -19,10 +19,6 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(setCartFromLocalStorage());
-  }, []);
-
-  useEffect(() => {
     // Cuando el cart se actualiza en Redux, actualizá el estado local
     const cartWithQuantity = cart.map((prod) => ({
       ...prod,
