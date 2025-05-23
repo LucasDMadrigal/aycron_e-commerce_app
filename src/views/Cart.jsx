@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  removeFromCart,
-  setCartFromLocalStorage,
-  updateCart,
-} from "../redux/actions/cartActions";
+import { removeFromCart, updateCart } from "../redux/actions/cartActions";
 import "./styles/Cart.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
+
 const Cart = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
@@ -59,16 +56,21 @@ const Cart = () => {
   const handleCheckout = () => {
     if (window.confirm("Are you sure you want to checkout?")) {
       axios
-        .post(`${import.meta.env.VITE_API_URL}purchase/create`, {
-          products, user_id: userId
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        .post(
+          `${import.meta.env.VITE_API_URL}purchase/create`,
+          {
+            products,
+            user_id: userId,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        })
+        )
         .then((response) => {
-        //  navigate("/purchases");
-        navigate("/auth/store");
+          //  navigate("/purchases");
+          navigate("/auth/store");
         });
     }
   };
@@ -78,7 +80,7 @@ const Cart = () => {
       {products.length === 0 ? (
         <h2>Cart is empty</h2>
       ) : (
-        <table>
+        <table className="cart--table">
           <thead>
             <tr>
               <th>Product</th>
@@ -110,9 +112,8 @@ const Cart = () => {
                     >
                       +
                     </button>
-
                   </td>
-                  <td>${(product.price*product.quantity).toFixed(2)}</td>
+                  <td>${(product.price * product.quantity).toFixed(2)}</td>
                   <td className="actions">
                     <button
                       className="button--table"
@@ -130,7 +131,52 @@ const Cart = () => {
           </tbody>
         </table>
       )}
-
+      <div className="cart_responsive--container">
+        {products.map((product) => {
+          return (
+            <div className="product-responsive--container" key={product._id}>
+              <div className="image--container">
+                <picture>
+                  <img src={product.image} alt="product_image" />
+                </picture>
+              </div>
+              <div className="description--container">
+                <p>{product.name}</p>
+                <p>${product.price}</p>
+                <div className="quantity_responsive--container">
+                  <p className="quantity">Quantity: {product.quantity}</p>
+                  <div className="quantity_button--container">
+                    <button
+                      className="btn-responsive btn-quantity"
+                      onClick={() => handleModifyQuantity(product._id, "sum")}
+                      type="button"
+                    >
+                      <span class="material-icons">arrow_drop_up</span>
+                    </button>
+                    <button
+                      className="btn-responsive btn-quantity"
+                      onClick={() => handleModifyQuantity(product._id, "sub")}
+                      type="button"
+                    >
+                      <span class="material-icons">arrow_drop_down</span>
+                    </button>
+                  </div>
+              </div>
+              <button
+                className="btn btn-danger btn-responsive"
+                onClick={() => handleRemoveProduct(product._id)}
+                type="button"
+              >
+                ELIMINAR
+              </button>
+              </div>
+              <div className="total--responsive--container">
+                <p>Total: ${(product.price * product.quantity).toFixed(2)}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
       {products.length !== 0 ? (
         <div className="checkout--container">
           <div className="total--container">
