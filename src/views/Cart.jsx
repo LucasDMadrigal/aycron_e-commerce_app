@@ -1,9 +1,7 @@
-import { act, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeItemFromCart,
-  //  removeFromCart,
-  //   updateCart,
   updateCartItemQuantity,
 } from "../redux/actions/cartActions";
 import "./styles/Cart.css";
@@ -21,41 +19,21 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Cuando el cart se actualiza en Redux, actualizá el estado local
     const cartWithQuantity = cart.map((prod) => ({
       ...prod,
-      quantity: prod.quantity ?? 1, // Si ya viene con quantity no lo pisa
     }));
+    console.log("🚀 ~ cartWithQuantity ~ cartWithQuantity:", cartWithQuantity);
+    // Cuando el cart se actualiza en Redux, actualizá el estado local
     const total = cartWithQuantity.reduce(
-      (acc, prod) => acc + prod.price * prod.quantity,
+      (acc, item) => acc + item.product.price * item.quantity,
       0
     );
     setTotal(total.toFixed(2));
     setProducts(cartWithQuantity);
   }, [cart]);
 
-  // const handleModifyQuantity = (prodId, action) => {
-  //   console.log("🚀 ~ handleModifyQuantity ~ prodId:", prodId);
-  //   const updatedProducts = products.map((prod) => {
-  //     if (prod._id === prodId) {
-  //       const newQuantity =
-  //         action === "sum"
-  //           ? Math.min(prod.quantity + 1, prod.stock)
-  //           : Math.max(prod.quantity - 1, 1);
-  //       return { ...prod, quantity: newQuantity };
-  //     }
-  //     return prod;
-  //   });
-
-  //   dispatch(updateCart(updatedProducts.find((prod) => prod._id === prodId)));
-
-  //   setProducts(updatedProducts); // Actualizás el state local con la copia modificada
-  // };
-
-  // const userId = useSelector((state) => state.auth.user?._id); // o donde tengas el user
-
   const handleModifyQuantity = (prodId, action) => {
-    const targetProduct = products.find((prod) => prod._id === prodId);
+    const targetProduct = products.find((item) => item.product._id === prodId);
     if (!targetProduct) return;
 
     let newQuantity = targetProduct.quantity;
@@ -74,11 +52,12 @@ const Cart = () => {
 
   const handleRemoveProduct = (prodId) => {
     const updatedProducts = products.filter((prod) => prod._id !== prodId);
-    dispatch(removeItemFromCart({ _id: prodId }));
+    dispatch(removeItemFromCart(prodId, token));
     setProducts(updatedProducts);
   };
 
   const handleCheckout = () => {
+            console.log("🚀 ~ handleCheckout ~ products:", products)
     if (window.confirm("Are you sure you want to checkout?")) {
       axios
         .post(
@@ -86,6 +65,7 @@ const Cart = () => {
           {
             products,
             user_id: userId,
+            total,
           },
           {
             headers: {
@@ -117,33 +97,37 @@ const Cart = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => {
+            {products.map((item) => {
               return (
-                <tr key={product._id}>
-                  <td>{product.name}</td>
-                  <td>${product.price}</td>
+                <tr key={item.product._id}>
+                  <td>{item.product.name}</td>
+                  <td>${item.product.price}</td>
                   <td>
                     <button
                       className="button--table"
-                      onClick={() => handleModifyQuantity(product._id, "sub")}
+                      onClick={() =>
+                        handleModifyQuantity(item.product._id, "sub")
+                      }
                       type="button"
                     >
                       -
                     </button>
-                    {product.quantity}
+                    {item.quantity}
                     <button
                       className="button--table"
-                      onClick={() => handleModifyQuantity(product._id, "sum")}
+                      onClick={() =>
+                        handleModifyQuantity(item.product._id, "sum")
+                      }
                       type="button"
                     >
                       +
                     </button>
                   </td>
-                  <td>${(product.price * product.quantity).toFixed(2)}</td>
+                  <td>${(item.product.price * item.quantity).toFixed(2)}</td>
                   <td className="actions">
                     <button
                       className="button--table"
-                      onClick={() => handleRemoveProduct(product._id)}
+                      onClick={() => handleRemoveProduct(item.product._id)}
                       type="button"
                     >
                       <i className="material-icons delete_forever">
@@ -158,46 +142,53 @@ const Cart = () => {
         </table>
       )}
       <div className="cart_responsive--container">
-        {products.map((product) => {
+        {products.map((item) => {
           return (
-            <div className="product-responsive--container" key={product._id}>
+            <div
+              className="product-responsive--container"
+              key={item.product._id}
+            >
               <div className="image--container">
                 <picture>
-                  <img src={product.image} alt="product_image" />
+                  <img src={item.product.image} alt="product_image" />
                 </picture>
               </div>
               <div className="description--container">
-                <p>{product.name}</p>
-                <p>${product.price}</p>
+                <p>{item.product.name}</p>
+                <p>${item.product.price}</p>
                 <div className="quantity_responsive--container">
-                  <p className="quantity">Quantity: {product.quantity}</p>
+                  <p className="quantity">Quantity: {item.product.quantity}</p>
                   <div className="quantity_button--container">
                     <button
                       className="btn-responsive btn-quantity"
-                      onClick={() => handleModifyQuantity(product._id, "sum")}
+                      onClick={() =>
+                        handleModifyQuantity(item.product._id, "sum")
+                      }
                       type="button"
                     >
                       <span className="material-icons">arrow_drop_up</span>
                     </button>
                     <button
                       className="btn-responsive btn-quantity"
-                      onClick={() => handleModifyQuantity(product._id, "sub")}
+                      onClick={() =>
+                        handleModifyQuantity(item.product._id, "sub")
+                      }
                       type="button"
                     >
-                      <span class="material-icons">arrow_drop_down</span>
+                      <span className="material-icons">arrow_drop_down</span>
                     </button>
                   </div>
                 </div>
                 <button
                   className="btn btn-danger btn-responsive"
-                  onClick={() => handleRemoveProduct(product._id)}
+                  onClick={() => handleRemoveProduct(item.product._id)}
                   type="button"
                 >
                   ELIMINAR
                 </button>
               </div>
               <div className="total--responsive--container">
-                <p>Total: ${(product.price * product.quantity).toFixed(2)}</p>
+                <p>Total: ${(item.product.price * item.quantity).toFixed(2)}</p>
               </div>
             </div>
           );
