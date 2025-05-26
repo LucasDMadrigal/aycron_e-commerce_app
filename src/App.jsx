@@ -59,7 +59,7 @@ const routesAdmin = [
 function App() {
   return (
     <MainLayout>
-      <Routes path="/">
+      <Routes>
         {routesNoAuth.map((route) => RoutesNoAuth(route))}
         {routesAdmin.map((route) => RoutesAdminAuth(route))}
         {routesAuth.map((route) => RoutesAuth(route))}
