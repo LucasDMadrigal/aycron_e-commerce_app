@@ -1,4 +1,4 @@
-// 📁 redux/actions/cartActions.js
+
 import axios from "axios";
 import { createAction } from "@reduxjs/toolkit";
 
@@ -18,9 +18,10 @@ export const fetchCartFromServer = (token) => async (dispatch) => {
   }
 };
 
-export const addItemToCartOnServer = (productId, quantity, userId, token) => async (dispatch) => {
+export const addItemToCartOnServer =
+  (productId, quantity, userId, token) => async (dispatch) => {
     try {
-      // const token = localStorage.getItem("token");
+  
       const res = await axios.post(
         `${VITE_API_URL}carts`,
         { productId, quantity, userId },
@@ -34,7 +35,7 @@ export const addItemToCartOnServer = (productId, quantity, userId, token) => asy
 export const updateCartItemQuantity =
   (productId, quantity, userId, token) => async (dispatch) => {
     try {
-      // const token = localStorage.getItem("token");
+  
       const res = await axios.patch(
         `${VITE_API_URL}carts/${productId}`,
         { quantity, userId },
@@ -48,7 +49,7 @@ export const updateCartItemQuantity =
 
 export const removeItemFromCart = (productId, token) => async (dispatch) => {
   try {
-    // const token = localStorage.getItem("token");
+
     const res = await axios.delete(`${VITE_API_URL}carts/${productId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -57,3 +58,5 @@ export const removeItemFromCart = (productId, token) => async (dispatch) => {
     console.error("Error al eliminar producto del carrito:", err);
   }
 };
+
+export const clearCartState = createAction("CLEAR_CART");
