@@ -14,7 +14,7 @@ const MainLayout = ({ children }) => {
     if (cart.length > 0) {
       if (
         window.confirm(
-          `Tienes ${cart.length} productos en tu carrito. ¿Deseas vaciarlo?`
+          `Tienes ${cart.length} productos en tu carrito. ¿Deseas salir?`
         )
       ) {
         dispatch(logout());

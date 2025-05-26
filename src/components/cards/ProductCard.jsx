@@ -52,6 +52,7 @@ const ProductCard = ({ product, selected }) => {
             </div>
             <div className="details">
               <h1 className="card-title">{product.name}</h1>
+              <p>${product.price}</p>
             </div>
             <div className="remove" onClick={handleToggleBuyClick}>
               {/* <div className="remove"> */}
@@ -65,7 +66,8 @@ const ProductCard = ({ product, selected }) => {
           <i className="material-icons">info_outline</i>
         </div>
         <div className="contents">
-          <h1 className="card-title--description">{product.name}</h1>
+          <h1 className="card-title--description">{product.name}!!</h1>
+          <p>${product.price}</p>
           <p>{product.description}</p>
         </div>
       </div>

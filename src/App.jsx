@@ -19,9 +19,9 @@ const routesNoAuth = [
     key: "login",
   },
   {
-    path: '/Register',
+    path: "/Register",
     element: <Register />,
-    key: 'register',
+    key: "register",
   },
   {
     path: "/",
@@ -32,12 +32,12 @@ const routesNoAuth = [
 
 const routesAuth = [
   {
-    path: '/auth/store',
+    path: "/auth/store",
     element: <MainStore />,
-    key: 'adminPanel',
+    key: "adminPanel",
   },
   {
-    path: '/auth/cart',
+    path: "/auth/cart",
     element: <Cart />,
     key: 'cart',
   },
@@ -50,25 +50,21 @@ const routesAuth = [
 
 const routesAdmin = [
   {
-    path: '/auth/admin',
+    path: "/auth/admin",
     element: <AdminPanel />,
-    key: 'adminPanel',
+    key: "adminPanel",
   },
 ];
 
-
 function App() {
-
   return (
-    <BrowserRouter>
-      <MainLayout>
-        <Routes path='/'>
-          {routesNoAuth.map((route) => RoutesNoAuth(route))}
-          {routesAdmin.map((route) => RoutesAdminAuth(route))}
-          {routesAuth.map((route) => RoutesAuth(route))}
-        </Routes>
-      </MainLayout>
-    </BrowserRouter>
+    <MainLayout>
+      <Routes path="/">
+        {routesNoAuth.map((route) => RoutesNoAuth(route))}
+        {routesAdmin.map((route) => RoutesAdminAuth(route))}
+        {routesAuth.map((route) => RoutesAuth(route))}
+      </Routes>
+    </MainLayout>
   );
 }
 
