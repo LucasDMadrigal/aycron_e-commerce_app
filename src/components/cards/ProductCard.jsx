@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "../styles/ProductCard.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
+import {
+  addItemToCartOnServer,
+  //  removeFromCart
+} from "../../redux/actions/cartActions";
 
 const ProductCard = ({ product, selected }) => {
   const [productToCart, setProductToCart] = useState({
@@ -9,14 +12,16 @@ const ProductCard = ({ product, selected }) => {
     quantity: 1,
   });
   const cart = useSelector((state) => state.cart);
+  const userId = useSelector((state) => state.auth.user.userId);
+  const token = useSelector((state) => state.auth.token);
 
   const dispatch = useDispatch();
   const handleToggleBuyClick = () => {
-    if (cart.some((prod) => prod._id === product._id)) {
-      dispatch(removeFromCart(product));
-    } else {
-      dispatch(addToCart(productToCart));
-    }
+    // if (cart.some((prod) => prod._id === product._id)) {
+    //   console.log("🚀 ~ handleToggleBuyClick ~ prod:", prod)
+    //   dispatch(removeFromCart(product));
+    // } else {
+    dispatch(addItemToCartOnServer(productToCart, 1, userId, token));
   };
 
   return (

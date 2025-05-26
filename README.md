@@ -1,12 +1,67 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Aycron E-Commerce Frontend
 
-Currently, two official plugins are available:
+Este es el frontend de la tienda online Aycron, construido con React + Vite, React Router, Redux Toolkit y estilos en CSS puro. La aplicación permite explorar productos, iniciar sesión, registrarse, administrar un carrito de compras y acceder a vistas protegidas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Tecnologías utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- Redux Toolkit
+- React Router DOM
+- CSS puro
+
+---
+
+## 🛠️ Instalación y ejecución local
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/LucasDMadrigal/aycron_e-commerce_frontend.git
+cd aycron_e-commerce_frontend
+```
+
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3. Crear archivo `.env`
+
+```env
+VITE_API_URL=https://aycron-e-commerce-api.onrender.com
+```
+
+### 4. Ejecutar en modo desarrollo
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en [http://localhost:5173](http://localhost:5173)
+
+---
+
+## 🗂️ Estructura de carpetas (resumen)
+
+- `/components`: componentes reutilizables (cards, forms, estilos)
+- `/views`: vistas principales (Landing, Store, Cart, Login, etc.)
+- `/redux`: store central + slices de estado
+- `/layouts` y `/HOCs`: wrappers generales
+- `/utils`: funciones auxiliares
+
+---
+
+## 🌐 Deploy
+
+- Frontend: [https://aycron-store.onrender.com](https://aycron-store.onrender.com) *(ejemplo)*
+
+---
+
+## 👨‍💻 Autor
+
+- Lucas Madrigal

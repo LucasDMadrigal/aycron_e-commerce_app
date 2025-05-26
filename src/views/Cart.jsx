@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, updateCart } from "../redux/actions/cartActions";
+import {
+  removeItemFromCart,
+  //  removeFromCart,
+  //   updateCart,
+     updateCartItemQuantity
+     } from "../redux/actions/cartActions";
 import "./styles/Cart.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -29,27 +34,45 @@ const Cart = () => {
     setProducts(cartWithQuantity);
   }, [cart]);
 
-  const handleModifyQuantity = (prodId, action) => {
-    console.log("🚀 ~ handleModifyQuantity ~ prodId:", prodId);
-    const updatedProducts = products.map((prod) => {
-      if (prod._id === prodId) {
-        const newQuantity =
-          action === "sum"
-            ? Math.min(prod.quantity + 1, prod.stock)
-            : Math.max(prod.quantity - 1, 1);
-        return { ...prod, quantity: newQuantity };
-      }
-      return prod;
-    });
+  // const handleModifyQuantity = (prodId, action) => {
+  //   console.log("🚀 ~ handleModifyQuantity ~ prodId:", prodId);
+  //   const updatedProducts = products.map((prod) => {
+  //     if (prod._id === prodId) {
+  //       const newQuantity =
+  //         action === "sum"
+  //           ? Math.min(prod.quantity + 1, prod.stock)
+  //           : Math.max(prod.quantity - 1, 1);
+  //       return { ...prod, quantity: newQuantity };
+  //     }
+  //     return prod;
+  //   });
 
-    dispatch(updateCart(updatedProducts.find((prod) => prod._id === prodId)));
+  //   dispatch(updateCart(updatedProducts.find((prod) => prod._id === prodId)));
 
-    setProducts(updatedProducts); // Actualizás el state local con la copia modificada
-  };
+  //   setProducts(updatedProducts); // Actualizás el state local con la copia modificada
+  // };
+
+  
+// const userId = useSelector((state) => state.auth.user?._id); // o donde tengas el user
+
+const handleModifyQuantity = (prodId, action) => {
+  const targetProduct = products.find((prod) => prod._id === prodId);
+  if (!targetProduct) return;
+
+  const newQuantity =
+    action === "sum"
+      ? Math.min(targetProduct.quantity + 1, targetProduct.stock)
+      : Math.max(targetProduct.quantity - 1, 1);
+
+  // Evitá llamar al backend si la cantidad no cambia
+  if (newQuantity === targetProduct.quantity) return;
+
+  dispatch(updateCartItemQuantity(prodId, newQuantity, userId, token));
+};
 
   const handleRemoveProduct = (prodId) => {
     const updatedProducts = products.filter((prod) => prod._id !== prodId);
-    dispatch(removeFromCart({ _id: prodId }));
+    dispatch(removeItemFromCart({ _id: prodId }));
     setProducts(updatedProducts);
   };
 
@@ -69,8 +92,9 @@ const Cart = () => {
           }
         )
         .then((response) => {
+          console.log("🚀 ~ .then ~ response:", response)
           //  navigate("/purchases");
-          navigate("/auth/store");
+          // navigate("/auth/store");
         });
     }
   };

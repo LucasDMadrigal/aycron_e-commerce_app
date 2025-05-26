@@ -9,6 +9,7 @@ import AdminPanel from "./views/AdminPanel";
 import RoutesAdminAuth from "./HOCs/RoutesAdminAuth";
 import MainStore from "./views/MainStore";
 import Cart from "./views/Cart";
+import Purchases from "./views/Purchases";
 import RoutesAuth from "./HOCs/RoutesAuth";
 
 const routesNoAuth = [
@@ -39,6 +40,11 @@ const routesAuth = [
     path: '/auth/cart',
     element: <Cart />,
     key: 'cart',
+  },
+  {
+    path: '/auth/purchases',
+    element: <Purchases />,
+    key: 'purchases',
   }
 ]
 
