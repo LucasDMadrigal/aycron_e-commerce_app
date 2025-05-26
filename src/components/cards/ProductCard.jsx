@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/ProductCard.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToCartOnServer,
+  removeItemFromCart,
   //  removeFromCart
 } from "../../redux/actions/cartActions";
 
@@ -17,12 +18,16 @@ const ProductCard = ({ product, selected }) => {
 
   const dispatch = useDispatch();
   const handleToggleBuyClick = () => {
-    // if (cart.some((prod) => prod._id === product._id)) {
-    //   console.log("🚀 ~ handleToggleBuyClick ~ prod:", prod)
-    //   dispatch(removeFromCart(product));
-    // } else {
-    dispatch(addItemToCartOnServer(productToCart, 1, userId, token));
+    if (cart.find((prod) => prod.product === product._id)){
+      dispatch(removeItemFromCart(product._id, token));
+    } else {
+      dispatch(addItemToCartOnServer(productToCart._id, 1, userId, token));
+    }
   };
+
+  // useEffect(() => {
+  //   console.log("🚀 ~ product:", product);
+  // }, [product]);
 
   return (
     <div className="wrapper">

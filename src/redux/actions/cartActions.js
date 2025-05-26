@@ -18,7 +18,7 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
 export const fetchCartFromServer = (token) => async (dispatch) => {
   try {
     // const token = localStorage.getItem("token");
-    const res = await axios.get(`${VITE_API_URL}/carts`, {
+    const res = await axios.get(`${VITE_API_URL}carts`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(setCart(res.data.products));
@@ -42,24 +42,25 @@ export const addItemToCartOnServer =
     }
   };
 export const updateCartItemQuantity =
-  (productId, quantity, token) => async (dispatch) => {
+  (productId, quantity, userId, token) => async (dispatch) => {
     try {
       // const token = localStorage.getItem("token");
       const res = await axios.patch(
-        `${VITE_API_URL}/carts/${productId}`,
-        { quantity },
+        `${VITE_API_URL}carts/${productId}`,
+        { quantity, userId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       dispatch(setCart(res.data));
     } catch (err) {
       console.error("Error al actualizar cantidad del producto:", err);
     }
+    // console.log("🚀 ~ productId, quantity, userId, token:", productId, quantity, userId, token)
   };
 
 export const removeItemFromCart = (productId, token) => async (dispatch) => {
   try {
     // const token = localStorage.getItem("token");
-    const res = await axios.delete(`${VITE_API_URL}/cart/${productId}`, {
+    const res = await axios.delete(`${VITE_API_URL}carts/${productId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(setCart(res.data));

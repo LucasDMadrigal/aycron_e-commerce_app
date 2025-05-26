@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeItemFromCart,
   //  removeFromCart,
   //   updateCart,
-     updateCartItemQuantity
-     } from "../redux/actions/cartActions";
+  updateCartItemQuantity,
+} from "../redux/actions/cartActions";
 import "./styles/Cart.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -52,23 +52,29 @@ const Cart = () => {
   //   setProducts(updatedProducts); // Actualizás el state local con la copia modificada
   // };
 
-  
-// const userId = useSelector((state) => state.auth.user?._id); // o donde tengas el user
+  // const userId = useSelector((state) => state.auth.user?._id); // o donde tengas el user
 
-const handleModifyQuantity = (prodId, action) => {
-  const targetProduct = products.find((prod) => prod._id === prodId);
-  if (!targetProduct) return;
+  const handleModifyQuantity = (prodId, action) => {
+    console.log("🚀 ~ handleModifyQuantity ~ action:", action)
+    const targetProduct = products.find((prod) => prod._id === prodId);
+    if (!targetProduct) return;
 
-  const newQuantity =
-    action === "sum"
-      ? Math.min(targetProduct.quantity + 1, targetProduct.stock)
-      : Math.max(targetProduct.quantity - 1, 1);
+    let newQuantity = targetProduct.quantity;
+    console.log("🚀 ~ handleModifyQuantity ~ newQuantity:", newQuantity);
 
-  // Evitá llamar al backend si la cantidad no cambia
-  if (newQuantity === targetProduct.quantity) return;
+    if (action === "sum") {
+      newQuantity += 1;
+    } else {
+      newQuantity = Math.max(targetProduct.quantity - 1, 1);
+    }
 
-  dispatch(updateCartItemQuantity(prodId, newQuantity, userId, token));
-};
+    console.log("🚀 ~ handleModifyQuantity ~ newQuantity:", newQuantity);
+    console.log("🚀 ~ handleModifyQuantity ~ targetProduct:", targetProduct);
+    // Evitá llamar al backend si la cantidad no cambia
+    if (newQuantity === targetProduct.quantity) return;
+
+    dispatch(updateCartItemQuantity(prodId, newQuantity, userId, token));
+  };
 
   const handleRemoveProduct = (prodId) => {
     const updatedProducts = products.filter((prod) => prod._id !== prodId);
@@ -92,7 +98,7 @@ const handleModifyQuantity = (prodId, action) => {
           }
         )
         .then((response) => {
-          console.log("🚀 ~ .then ~ response:", response)
+          console.log("🚀 ~ .then ~ response:", response);
           //  navigate("/purchases");
           // navigate("/auth/store");
         });
@@ -185,14 +191,14 @@ const handleModifyQuantity = (prodId, action) => {
                       <span class="material-icons">arrow_drop_down</span>
                     </button>
                   </div>
-              </div>
-              <button
-                className="btn btn-danger btn-responsive"
-                onClick={() => handleRemoveProduct(product._id)}
-                type="button"
-              >
-                ELIMINAR
-              </button>
+                </div>
+                <button
+                  className="btn btn-danger btn-responsive"
+                  onClick={() => handleRemoveProduct(product._id)}
+                  type="button"
+                >
+                  ELIMINAR
+                </button>
               </div>
               <div className="total--responsive--container">
                 <p>Total: ${(product.price * product.quantity).toFixed(2)}</p>
