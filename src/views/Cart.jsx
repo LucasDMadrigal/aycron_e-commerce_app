@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearCartState,
   removeItemFromCart,
   updateCartItemQuantity,
 } from "../redux/actions/cartActions";
@@ -17,13 +18,14 @@ const Cart = () => {
   const token = useSelector((state) => state.auth.token);
 
   const navigate = useNavigate();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const cartWithQuantity = cart.map((prod) => ({
       ...prod,
     }));
     console.log("🚀 ~ cartWithQuantity ~ cartWithQuantity:", cartWithQuantity);
-    // Cuando el cart se actualiza en Redux, actualizá el estado local
+
     const total = cartWithQuantity.reduce(
       (acc, item) => acc + item.product.price * item.quantity,
       0
@@ -44,7 +46,6 @@ const Cart = () => {
       newQuantity = Math.max(targetProduct.quantity - 1, 1);
     }
 
-    // Evitá llamar al backend si la cantidad no cambia
     if (newQuantity === targetProduct.quantity) return;
 
     dispatch(updateCartItemQuantity(prodId, newQuantity, userId, token));
@@ -57,28 +58,35 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
-            console.log("🚀 ~ handleCheckout ~ products:", products)
-    if (window.confirm("Are you sure you want to checkout?")) {
-      axios
-        .post(
-          `${import.meta.env.VITE_API_URL}purchase/create`,
-          {
-            products,
-            user_id: userId,
-            total,
+    console.log("🚀 ~ handleCheckout ~ products:", products);
+
+    axios
+      .post(
+        `${import.meta.env.VITE_API_URL}purchase/create`,
+        {
+          products,
+          user_id: userId,
+          total,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((response) => {
-          console.log("🚀 ~ .then ~ response:", response);
-          //  navigate("/purchases");
-          // navigate("/auth/store");
-        });
-    }
+        }
+      )
+      .then((response) => {
+        axios
+          .delete(`${VITE_API_URL}carts`, {
+            headers: { Authorization: `Bearer ${token}` },
+            data: { userId },
+          })
+          .then(() => {
+            dispatch(clearCartState());
+            window.alert("✅ Checkout completo y carrito eliminado");
+            navigate("/");
+          });
+        console.log("🚀 ~ .then ~ response:", response.data);
+      });
   };
   return (
     <>
