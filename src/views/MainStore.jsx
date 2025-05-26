@@ -61,7 +61,7 @@ const MainStore = () => {
   }, [searchInput, minPrice, maxPrice, products]);
 
   const toogleSelected = (productId) => {
-    return cart.some((item) => item._id === productId);
+    return cart.some((item) => item.product._id === productId);
   };
 
   const HandleSearch = (e) => setSearchInput(e.target.value);
