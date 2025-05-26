@@ -18,8 +18,11 @@ const ProductCard = ({ product, selected }) => {
 
   const dispatch = useDispatch();
   const handleToggleBuyClick = () => {
-    if (cart.find((prod) => prod.product === product._id)){
-      dispatch(removeItemFromCart(product._id, token));
+    // console.log("🚀 ~ SOME", cart.some((item) => item.product._id === product._id))
+    // console.log("🚀 ~ FIND", cart.find((item) => item.product._id === product._id))
+    if (cart.some((item) => item.product._id === product._id)){
+      
+      dispatch(removeItemFromCart(productToCart._id, token));
     } else {
       dispatch(addItemToCartOnServer(productToCart._id, 1, userId, token));
     }

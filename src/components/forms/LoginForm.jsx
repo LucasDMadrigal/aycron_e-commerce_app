@@ -5,6 +5,7 @@ import { login } from "../../redux/actions/authActions";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { parseJwt } from "../../utils/parseJwt";
+import { fetchCartFromServer } from "../../redux/actions/cartActions";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -51,6 +52,7 @@ const LoginForm = () => {
         expiresIn: loggedUser.exp,
         };
         dispatch(login(auth));
+        dispatch(fetchCartFromServer(token));
         navigate(loggedUser.isAdmin ? "/auth/admin" : "/auth/store");
       });
     } catch (error) {

@@ -55,12 +55,10 @@ const Cart = () => {
   // const userId = useSelector((state) => state.auth.user?._id); // o donde tengas el user
 
   const handleModifyQuantity = (prodId, action) => {
-    console.log("🚀 ~ handleModifyQuantity ~ action:", action)
     const targetProduct = products.find((prod) => prod._id === prodId);
     if (!targetProduct) return;
 
     let newQuantity = targetProduct.quantity;
-    console.log("🚀 ~ handleModifyQuantity ~ newQuantity:", newQuantity);
 
     if (action === "sum") {
       newQuantity += 1;
@@ -68,8 +66,6 @@ const Cart = () => {
       newQuantity = Math.max(targetProduct.quantity - 1, 1);
     }
 
-    console.log("🚀 ~ handleModifyQuantity ~ newQuantity:", newQuantity);
-    console.log("🚀 ~ handleModifyQuantity ~ targetProduct:", targetProduct);
     // Evitá llamar al backend si la cantidad no cambia
     if (newQuantity === targetProduct.quantity) return;
 
@@ -181,7 +177,7 @@ const Cart = () => {
                       onClick={() => handleModifyQuantity(product._id, "sum")}
                       type="button"
                     >
-                      <span class="material-icons">arrow_drop_up</span>
+                      <span className="material-icons">arrow_drop_up</span>
                     </button>
                     <button
                       className="btn-responsive btn-quantity"
