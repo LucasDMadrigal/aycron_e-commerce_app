@@ -165,7 +165,7 @@ const Cart = () => {
                 <p>{item.product.name}</p>
                 <p>${item.product.price}</p>
                 <div className="quantity_responsive--container">
-                  <p className="quantity">Quantity: {item.product.quantity}</p>
+                  <p className="quantity">{item.quantity}</p>
                   <div className="quantity_button--container">
                     <button
                       className="btn-responsive btn-quantity"
